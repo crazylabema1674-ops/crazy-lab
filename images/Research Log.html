@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Research Log | Crazy Lab.</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <style>
+    /* --- index.html と共通のデザイン変数 --- */
+    :root {
+      --bg: #fdfdfe;
+      --fg: #1e293b;
+      --muted: #64748b;
+      --accent: #2563eb;
+      --accent-soft: rgba(37, 99, 235, 0.08);
+      --card: #ffffff;
+      --nav-bg: rgba(255, 255, 255, 0.9);
+      --border: #e2e8f0;
+      --navy: #0f172a;
+    }
+
+    /* --- 共通リセット --- */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', 'Noto Sans JP', sans-serif;
+      background: var(--bg);
+      color: var(--fg);
+      line-height: 1.8;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* --- ナビゲーションメニュー (index.htmlと共通) --- */
+    nav.site-nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: var(--nav-bg);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      z-index: 1000;
+      padding: 1rem 0;
+    }
+
+    nav.site-nav .container {
+      max-width: 1100px;
+      margin: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 2rem;
+    }
+
+    .nav-logo {
+      font-weight: 700;
+      font-size: 1.3rem;
+      letter-spacing: 0.05em;
+      color: var(--navy);
+      text-decoration: none;
+    }
+
+    nav.site-nav ul {
+      display: flex;
+      list-style: none;
+      gap: 2rem;
+    }
+
+    nav.site-nav a {
+      text-decoration: none;
+      color: var(--fg);
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    nav.site-nav a:not(.nav-logo):hover {
+      color: var(--accent);
+    }
+
+    /* --- ページヘッダー (Research Log用) --- */
+    header.page-header {
+      padding: 8rem 2rem 4rem;
+      background-color: var(--navy);
+      color: #fff;
+      text-align: center;
+    }
+
+    header.page-header h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      letter-spacing: 0.05em;
+    }
+
+    header.page-header p {
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 1rem;
+    }
+
+    /* --- ログ記事リスト --- */
+    .log-container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 4rem 2rem;
+    }
+
+    .log-entry {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 2.5rem;
+      margin-bottom: 3rem;
+      transition: box-shadow 0.3s ease;
+    }
+
+    .log-entry:hover {
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    }
+
+    /* 記事ヘッダー（番号、日付、タグ） */
+    .log-meta {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .log-number {
+      background: var(--navy);
+      color: #fff;
+      font-weight: 700;
+      padding: 0.2rem 0.8rem;
+      border-radius: 4px;
+      font-size: 0.9rem;
+    }
+
+    .log-date {
+      color: var(--muted);
+      font-size: 0.9rem;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .log-tags {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .log-tag {
+      font-size: 0.8rem;
+      color: var(--accent);
+      background: var(--accent-soft);
+      padding: 0.2rem 0.6rem;
+      border-radius: 20px;
+    }
+
+    /* 記事タイトル */
+    .log-entry h2 {
+      font-size: 1.8rem;
+      color: var(--navy);
+      margin-bottom: 1.5rem;
+      line-height: 1.3;
+    }
+
+    /* 記事本文 */
+    .log-body {
+      font-size: 1.05rem;
+      color: var(--fg);
+      line-height: 1.8;
+    }
+
+    .log-body p {
+      margin-bottom: 1.5rem;
+    }
+
+    .log-body ul {
+      margin-bottom: 1.5rem;
+      padding-left: 1.5rem;
+      color: var(--muted);
+    }
+
+    .log-body li {
+      margin-bottom: 0.5rem;
+    }
+
+    /* 引用・メモ枠 */
+    .log-note {
+      background: #f8fafc;
+      border-left: 4px solid var(--muted);
+      padding: 1rem 1.5rem;
+      margin: 1.5rem 0;
+      color: var(--muted);
+      font-style: italic;
+    }
+
+    /* --- フッター (index.htmlと共通) --- */
+    footer {
+      background: var(--navy);
+      color: #fff;
+      padding: 5rem 2rem;
+      text-align: center;
+    }
+
+    .footer-logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      letter-spacing: 0.1em;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-bottom: 3rem;
+    }
+
+    .footer-links a {
+      color: rgba(255,255,255,0.6);
+      text-decoration: none;
+      font-size: 0.9rem;
+    }
+
+    .footer-links a:hover {
+      color: #fff;
+    }
+
+    .copyright {
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.4);
+    }
+
+    /* レスポンシブ */
+    @media (max-width: 768px) {
+      nav.site-nav .container {
+        flex-direction: column;
+        padding: 1rem;
+      }
+      nav.site-nav ul {
+        margin-top: 1rem;
+        gap: 1rem;
+      }
+      header.page-header {
+        padding-top: 7rem;
+      }
+      .log-entry {
+        padding: 1.5rem;
+      }
+      .log-entry h2 {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="site-nav">
+  <div class="container">
+    <a href="index.html" class="nav-logo">Crazy Lab.</a>
+    <ul>
+      <li><a href="index.html#about">About</a></li>
+      <li><a href="index.html#philosophy">Philosophy</a></li>
+      <li><a href="index.html#history">History</a></li>
+      <li><a href="index.html#members">Members</a></li>
+      <li><a href="research-log.html" style="color: var(--accent);">Research Log</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="page-header">
+  <h1>Research Log</h1>
+  <p>思考の軌跡と、未解決の問いのアーカイブ。</p>
+</header>
+
+<main class="log-container">
+
+  <!-- 記事を追加する場合は、この article ブロックをコピーして上に増やしてください -->
+  
+  <!-- Log #2 -->
+  <article class="log-entry" id="log-2">
+    <div class="log-meta">
+      <span class="log-number">#2</span>
+      <span class="log-date">2024.02.15</span>
+      <div class="log-tags">
+        <span class="log-tag">Physics</span>
+        <span class="log-tag">Optics</span>
+      </div>
+    </div>
+    <h2>「見えない光」をどう可視化するか？</h2>
+    <div class="log-body">
+      <p>今回のテーマは「メタマテリアルによる透明化技術」について。ハリスが持ってきた論文をベースに議論がスタートした。</p>
+      <p>光を曲げることで物体の背後にある景色を見せるという原理は理解できるが、それを「特定の波長だけ」で行う場合と、「可視光全域」で行う場合の技術的ハードルの差について意見が割れた。</p>
+      <div class="log-note">
+        議論メモ：屈折率を負にするための構造体サイズが、波長よりも十分に小さい必要がある。可視光（数百nm）レベルでの微細加工コストが最大のネックか？
+      </div>
+      <p>キョソからの指摘：「そもそも完全に透明である必要があるのか？ 情報の一部が欠落していても、脳が補完してしまうような『擬似的な透明化』の方が実用に近いのではないか」という視点は面白かった。</p>
+      <ul>
+        <li>アクションアイテム：カメレオンの皮膚構造と光学迷彩の類似性について調べる（担当：ペリー）</li>
+        <li>次回テーマ候補：生物模倣技術（バイオミメティクス）</li>
+      </ul>
+    </div>
+  </article>
+
+  <!-- Log #1 -->
+  <article class="log-entry" id="log-1">
+    <div class="log-meta">
+      <span class="log-number">#1</span>
+      <span class="log-date">2024.01.20</span>
+      <div class="log-tags">
+        <span class="log-tag">General</span>
+        <span class="log-tag">Kickoff</span>
+      </div>
+    </div>
+    <h2>Crazy Lab. 始動：なぜ私たちは集まるのか</h2>
+    <div class="log-body">
+      <p>記念すべき第1回の集まり。それぞれの専門分野（電気、化学、物理、機械）が異なる中で、共通言語を見つけるところからのスタートだった。</p>
+      <p>「専門外の質問を恐れない」というルールを決めた途端、エマから「そもそも光って波なの？粒なの？どっちでもいいなら、なんで使い分ける必要があるの？」という直球の質問が飛び出し、場が一気に白熱した。</p>
+      <p>結局、その日は結論が出なかったが、「答えが出ない議論こそが楽しい」という感覚を共有できたのが最大の収穫だったかもしれない。</p>
+    </div>
+  </article>
+
+</main>
+
+<footer>
+  <div class="footer-logo">Crazy Lab.</div>
+  <div class="footer-links">
+    <a href="index.html#about">About</a>
+    <a href="index.html#philosophy">Philosophy</a>
+    <a href="index.html#history">History</a>
+    <a href="index.html#members">Members</a>
+    <a href="research-log.html">Research Log</a>
+  </div>
+  <div class="footer-copy">BE CRAZY. STAY FUNNY.</div>
+  <p class="copyright">&copy; 2019 Crazy Lab. All Rights Reserved.</p>
+</footer>
+
+</body>
+</html>
