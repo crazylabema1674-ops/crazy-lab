@@ -13,7 +13,12 @@
 <nav class="site-nav">
   <div class="container">
     <a href="index.html" class="nav-logo">Crazy Lab.</a>
-    <ul>
+    <button class="hamburger" id="hamburger" aria-label="メニューを開く" aria-expanded="false">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+    <ul id="nav-menu">
       <li><a href="index.html#about">About</a></li>
       <li><a href="index.html#philosophy">Philosophy</a></li>
       <li><a href="index.html#history">History</a></li>
@@ -22,6 +27,7 @@
     </ul>
   </div>
 </nav>
+<div class="nav-overlay" id="nav-overlay"></div>
 
 <header class="page-header">
   <h1>Research Log</h1>
@@ -89,6 +95,48 @@
   <div class="footer-copy">BE CRAZY. STAY FUNNY.</div>
   <p class="copyright">&copy; 2019 Crazy Lab. All Rights Reserved.</p>
 </footer>
+
+<script>
+  // ハンバーガーメニューの制御
+  const hamburger = document.getElementById('hamburger');
+  const navMenu = document.getElementById('nav-menu');
+  const navOverlay = document.getElementById('nav-overlay');
+
+  function toggleMenu() {
+    hamburger.classList.toggle('active');
+    navMenu.classList.toggle('active');
+    navOverlay.classList.toggle('active');
+    
+    // body のスクロールを制御
+    document.body.style.overflow = navMenu.classList.contains('active') ? 'hidden' : '';
+    
+    // アクセシビリティ
+    hamburger.setAttribute('aria-expanded', navMenu.classList.contains('active'));
+  }
+
+  function closeMenu() {
+    hamburger.classList.remove('active');
+    navMenu.classList.remove('active');
+    navOverlay.classList.remove('active');
+    document.body.style.overflow = '';
+    hamburger.setAttribute('aria-expanded', 'false');
+  }
+
+  hamburger.addEventListener('click', toggleMenu);
+  navOverlay.addEventListener('click', closeMenu);
+
+  // メニュー内のリンクをクリックしたらメニューを閉じる
+  navMenu.querySelectorAll('a').forEach(function(link) {
+    link.addEventListener('click', closeMenu);
+  });
+
+  // ウィンドウリサイズ時にメニューを閉じる（PC表示に戻った場合）
+  window.addEventListener('resize', function() {
+    if (window.innerWidth > 768) {
+      closeMenu();
+    }
+  });
+</script>
 
 </body>
 </html>
