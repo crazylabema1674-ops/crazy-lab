@@ -5,7 +5,7 @@
 
 ## 調査結果の要約（2026-11-22）
 
-詳細: `docs/harmony-research-competitors.md`（競合・需要）、`docs/harmony-research-technical.md`（技術・費用）
+詳細: `docs/harmony-research-competitors.md`（競合・需要）、`docs/harmony-research-technical.md`（技術・費用）、`docs/harmony-research-theory.md`（ハモリの理論とAIの仕組み）
 
 - **技術そのものは既にある**: Kits.ai、Wondera、Audimee など海外のWebサービスが「歌の録音 → 歌詞つきハモリを別のAIの声で」を提供。MITの研究も同じ仕組み。
 - **ただし空白はある**: 気軽に歌う人向けのスマホアプリ／アカペラ1曲まるごと／キー自動判定／声で直しを頼める／日本語・J-POP前提／SNS投稿まで一つの流れ、を満たすものは見つからなかった。差別化は技術ではなく「体験の作り込み」。大手のスマホ参入で追いつかれるリスクあり。
